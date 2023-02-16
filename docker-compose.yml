@@ -6,3 +6,27 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    ports:
+      - "5000:80"
+
+  postgresql:
+    image: postgres:13.0
+    environment:
+      POSTGRES_DB: "dailyauto"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "3563"
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - ./Database:/docker-entrypoint-initdb.d
+      - .:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  pgadmin:
+    image: 'dpage/pgadmin4'
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=pguser@mail.ru
+      - PGADMIN_DEFAULT_PASSWORD=3563
+      - traefik.frontend.pgadmin4.rule=Host(`host.example.com`) && PathPrefix(`/admin`)
+    ports:
+      - "5050:81"

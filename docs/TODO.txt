@@ -4,17 +4,15 @@ https://medium.com/geekculture/how-to-add-jwt-authentication-to-an-asp-net-core-
 appsettings(JWT) 19:30 https://www.youtube.com/watch?v=jI-7x_atlM0&list=PL2E-vlKoo_v0VjwlmPFljWJI42kpAdXel&index=12&ab_channel=Codewrinkles
 
 поля DTO, ModelToDTO
-NoContent204 возвращается после Get(ничего не нашлось) или NotFound?
 При CreateOrder в контроллере заполяем UserId
 Контроллеры получают и возвращают DTO, сервисы уже работают с норм моделью
 [Required], [DefaultValue(false)] в DTO для контроллеров
 метод для PATCH(?)
-пагинация при where(?)
 utils/errors (match to http) try catch throw
 Limit, offset from query (продумать для All, неогр.лимит)
 Триггеры для Car Availability, order duration в sql
 добавить Authorize в эндпоинты, returns 401.unathorized
-Проверка доступа к ресурсу в сервисе, юзер имеет доступ только к своим заказам
+Проверка доступа к ресурсу в сервисе, юзер имеет доступ только к своим заказам Forbidden 403
 Хешировать пароли в базе
 AsNoTracking()
 Комменты сваггер (подключ. чтение xml, platinumdev)

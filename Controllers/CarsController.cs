@@ -16,11 +16,16 @@ namespace DailyAuto.Controllers
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<List<Car>> GetAvailableCars(int limit, int offset)
         {
             var cars = _carsService.GetAvailableCars(limit, offset);
+
+            if (cars.Count() == 0)
+                return NoContent();
+
             return Ok(cars);
         }
 

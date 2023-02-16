@@ -49,23 +49,28 @@ namespace DailyAuto.Controllers
             return Ok(model);
         }
 
+        /// <summary>
+        /// Updates user info
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
         [HttpPatch("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<User> UpdateUser(long id, User user)
+        public ActionResult UpdateUser(long id, User user)
         {
-            if (id != user.Id)
-                return BadRequest();
-
             var existingUser = _usersService.GetUserById(id);
 
             if (existingUser is null)
                 return NotFound();
 
             var model = _usersService.UpdateUser(id, user);
-            return Ok(model);
+            return NoContent();
         }
+
+
         /*private static UserDTO ModelToDTO(User user) =>
             new UserDTO
             {
@@ -74,4 +79,6 @@ namespace DailyAuto.Controllers
                 IsComplete = todoItem.IsComplete
             };*/
     }
+
+    public class CreateUserRequest { }
 }

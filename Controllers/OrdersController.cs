@@ -28,6 +28,10 @@ namespace DailyAuto.Controllers
         public ActionResult<List<Order>> GetOrdersByUserId(long user_id, [FromQuery] int limit, [FromQuery] int offset)
         {
             var orders = _ordersService.GetOrdersByUserId(user_id, limit, offset);
+
+            if (orders.Count() == 0)
+                return NoContent();
+
             return Ok(orders);
         }
 
