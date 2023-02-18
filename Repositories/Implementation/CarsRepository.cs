@@ -40,17 +40,16 @@ namespace DailyAuto.Repositories.Implementation
 
         public List<Car> GetAvailableCars(int limit, int offset)
         {
-            List<CarDB> cars = _db.Cars.Where(f => f.IsAvailable) //== true
+            List<CarDB> cars = _db.Cars.AsNoTracking()
+                                    .Where(f => f.IsAvailable)
                                     .Skip(offset)
                                     .Take(limit)
                                     .ToList();
 
             List<Car> result = new List<Car>();
             foreach (var model in cars)
-            {
                 result.Add(DBtoBL(model));
-            }
-            //return result.Count() > 0 ? result : null;
+
             return result;
         }
 

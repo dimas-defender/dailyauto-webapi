@@ -1,14 +1,6 @@
 version: '3.4'
 
 services:
-  dailyauto:
-    image: ${DOCKER_REGISTRY-}dailyauto
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "5000:80"
-
   postgresql:
     image: postgres:13.0
     environment:
@@ -18,15 +10,88 @@ services:
       PGDATA: "/var/lib/postgresql/data/pgdata"
     volumes:
       - ./Database:/docker-entrypoint-initdb.d
-      - .:/var/lib/postgresql/data
+      - ./data/dailyauto:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+    - 5432:5432
+
+  postgresqlmirror:
+    image: postgres:13.0
+    environment:
+      POSTGRES_DB: "dailyauto"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "3563"
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - ./Database:/docker-entrypoint-initdb.d
+      - ./data/dailyautomirror:/var/lib/postgresql/data
+
+  api:
+    image: ${DOCKER_REGISTRY-}dailyauto
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - postgresql
+    ports:
+      - 5000:80
+
+  api2:
+    image: ${DOCKER_REGISTRY-}dailyauto
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - postgresql
+      - api
+    volumes:
+      - ./settings/appsettings_readonly.json:/app/appsettings.json
+
+  api3:
+    image: ${DOCKER_REGISTRY-}dailyauto
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - postgresql
+      - api2
+    volumes:
+      - ./settings/appsettings_readonly.json:/app/appsettings.json
+
+  apimirror:
+    image: ${DOCKER_REGISTRY-}dailyauto
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - postgresqlmirror
+    volumes:
+      - ./settings/appsettings_mirror.json:/app/appsettings.json
 
   pgadmin:
     image: 'dpage/pgadmin4'
     environment:
       - PGADMIN_DEFAULT_EMAIL=pguser@mail.ru
       - PGADMIN_DEFAULT_PASSWORD=3563
+      - PGADMIN_LISTEN_PORT=83
       - traefik.frontend.pgadmin4.rule=Host(`host.example.com`) && PathPrefix(`/admin`)
     ports:
-      - "5050:81"
+      - "5050:83"
+
+  nginx:
+    image: 'byjg/nginx-extras'
+    ports:
+      - "9090:9090"
+    links:
+      - "api:api"
+      - "api2:api2"
+      - "api3:api3"
+      - "apimirror:apimirror"
+      - "pgadmin:pgadmin"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/static:/usr/share/nginx/static
+    depends_on:
+      - api
+      - api2
+      - api3
+      - apimirror

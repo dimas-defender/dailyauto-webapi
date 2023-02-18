@@ -13,7 +13,6 @@ namespace DailyAuto.Repositories.Implementation
         {
             _db = db;
         }
-
         public static OrderDB BLtoDB(Order model)
         {
             return new OrderDB
@@ -42,16 +41,16 @@ namespace DailyAuto.Repositories.Implementation
 
         public List<Order> GetOrdersByUserId(long user_id, int limit, int offset)
         {
-            List<OrderDB> orders = _db.Orders.Where(f => f.UserId == user_id)
-                                                .Skip(offset)
-                                                .Take(limit)
-                                                .ToList();
+            List<OrderDB> orders = _db.Orders.AsNoTracking()
+                                    .Where(f => f.UserId == user_id)
+                                    .Skip(offset)
+                                    .Take(limit)
+                                    .ToList();
 
             List<Order> result = new List<Order>();
             foreach (var model in orders)
-            {
                 result.Add(DBtoBL(model));
-            }
+
             return result;
         }
 
@@ -72,6 +71,7 @@ namespace DailyAuto.Repositories.Implementation
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                throw;
             }
             return DBtoBL(ord);
         }

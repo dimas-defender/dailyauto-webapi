@@ -1,32 +1,26 @@
-JWT 
-https://github.com/Excalib88/Sailora/tree/master/Sailora.Identity
-https://medium.com/geekculture/how-to-add-jwt-authentication-to-an-asp-net-core-api-84e469e9f019
-appsettings(JWT) 19:30 https://www.youtube.com/watch?v=jI-7x_atlM0&list=PL2E-vlKoo_v0VjwlmPFljWJI42kpAdXel&index=12&ab_channel=Codewrinkles
+CreateOrder машина занята 400(?)
+Повторный login (уже авторизован)?
+NotFound в GetUserById, UpdateUser, GetOrdersByUserId(?)
+смысл перехвата эксепшенов, CreateClaims(?)
 
-поля DTO, ModelToDTO
-При CreateOrder в контроллере заполяем UserId
-Контроллеры получают и возвращают DTO, сервисы уже работают с норм моделью
-[Required], [DefaultValue(false)] в DTO для контроллеров
-метод для PATCH(?)
-utils/errors (match to http) try catch throw
-Limit, offset from query (продумать для All, неогр.лимит)
+Тестировать эндпоинты
 Триггеры для Car Availability, order duration в sql
-добавить Authorize в эндпоинты, returns 401.unathorized
-Проверка доступа к ресурсу в сервисе, юзер имеет доступ только к своим заказам Forbidden 403
-Хешировать пароли в базе
-AsNoTracking()
-Комменты сваггер (подключ. чтение xml, platinumdev)
 Экраны (гостевой, основной, конкр.машина, профиль, конкр.заказ(?)) //регистрация, авторизация
-postgres в docker
-
-https://github.com/efremovrd/quizapp
+README.md
+nginx
 https://github.com/vkrivozubov/bmstu-web
-https://metanit.com/sharp/aspnet6/
-https://metanit.com/sharp/tutorial/
 Docker, client, nginx, Startup(cors) https://www.youtube.com/watch?v=PhF6PxDT8Mo&ab_channel=%D0%A0%D1%83%D1%81%D0%BB%D0%B0%D0%BD%D0%93%D0%B0%D0%BB%D0%B5%D0%B5%D0%B2
 
+
+cars Authorize?
 REACT в сохраненных YT
 JWT React https://medium.com/geekculture/user-authentication-with-react-700e5cb331e4
 JWT Client https://metanit.com/sharp/aspnet6/13.3.php
 React MVC https://habr.com/ru/post/493430/
 CSS tailwindcss, bulma
+Поправить Cors
+
+
+JsonPatchDoc https://medium.com/@niteshsinghal85/httpput-or-httppatch-in-asp-net-core-ceaae99e320b
+https://metanit.com/sharp/aspnet6/
+https://metanit.com/sharp/tutorial/

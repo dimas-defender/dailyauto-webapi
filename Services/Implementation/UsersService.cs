@@ -18,6 +18,11 @@ namespace DailyAuto.Services.Implementation
             return _usersRepository.GetUserById(id);
         }
 
+        public User? GetUserByLogin(string login)
+        {
+            return _usersRepository.GetUserByLogin(login);
+        }
+
         public User CreateUser(User user)
         {
             return _usersRepository.CreateUser(user);

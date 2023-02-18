@@ -4,7 +4,28 @@
       "commandName": "DockerCompose",
       "commandVersion": "1.0",
       "serviceActions": {
-        "dailyauto": "StartWithoutDebugging"
+        "api": "StartWithoutDebugging",
+        "api2": "StartWithoutDebugging",
+        "api3": "StartWithoutDebugging",
+        "apimirror": "StartWithoutDebugging",
+        "nginx": "StartWithoutDebugging",
+        "pgadmin": "StartWithoutDebugging",
+        "postgresql": "StartWithoutDebugging",
+        "postgresqlmirror": "StartWithoutDebugging"
+      }
+    },
+    "MainApi": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "api": "StartWithoutDebugging",
+        "api2": "DoNotStart",
+        "api3": "DoNotStart",
+        "apimirror": "DoNotStart",
+        "nginx": "DoNotStart",
+        "pgadmin": "StartWithoutDebugging",
+        "postgresql": "StartWithoutDebugging",
+        "postgresqlmirror": "DoNotStart"
       }
     }
   }

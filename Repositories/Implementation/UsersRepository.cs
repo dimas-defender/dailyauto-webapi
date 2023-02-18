@@ -41,6 +41,12 @@ namespace DailyAuto.Repositories.Implementation
             return users.Count() > 0 ? DBtoBL(users.First()) : null;
         }
 
+        public User? GetUserByLogin(string login)
+        {
+            List<UserDB> users = _db.Users.AsNoTracking().Where(f => f.Login == login).ToList();
+            return users.Count() > 0 ? DBtoBL(users.First()) : null;
+        }
+
         public User CreateUser(User user)
         {
             UserDB usr = BLtoDB(user);
@@ -48,11 +54,11 @@ namespace DailyAuto.Repositories.Implementation
             {
                 _db.Users.Add(usr);
                 _db.SaveChanges();
-                //db.Entry(o).State = EntityState.Detached;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                throw;
             }
             return DBtoBL(usr);
         }
@@ -68,6 +74,7 @@ namespace DailyAuto.Repositories.Implementation
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                throw;
             }
             return DBtoBL(usr);
         }
