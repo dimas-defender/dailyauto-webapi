@@ -42,8 +42,6 @@ namespace DailyAuto.Controllers
             if (userId != user_id)
                 return Forbid();
 
-            //проверить что юзер существует, иначе 404?
-
             var orders = _ordersService.GetOrdersByUserId(user_id, limit, offset);
 
             if (orders.Count() == 0)

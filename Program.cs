@@ -93,6 +93,11 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    /*app.UseSwaggerUI(o =>
+    {
+        o.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+        o.RoutePrefix = "/api/v1";
+    });*/
 }
 
 app.UseAuthentication();

@@ -11,8 +11,6 @@ services:
     volumes:
       - ./Database:/docker-entrypoint-initdb.d
       - ./data/dailyauto:/var/lib/postgresql/data
-    ports:
-    - 5432:5432
 
   postgresqlmirror:
     image: postgres:13.0
@@ -32,8 +30,6 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - postgresql
-    ports:
-      - 5000:80
 
   api2:
     image: ${DOCKER_REGISTRY-}dailyauto
@@ -72,10 +68,7 @@ services:
     environment:
       - PGADMIN_DEFAULT_EMAIL=pguser@mail.ru
       - PGADMIN_DEFAULT_PASSWORD=3563
-      - PGADMIN_LISTEN_PORT=83
       - traefik.frontend.pgadmin4.rule=Host(`host.example.com`) && PathPrefix(`/admin`)
-    ports:
-      - "5050:83"
 
   nginx:
     image: 'byjg/nginx-extras'

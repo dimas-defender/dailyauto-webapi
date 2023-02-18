@@ -87,7 +87,6 @@ namespace DailyAuto.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<UserDTO> GetUserById(long id)
         {
             if (id < 1)
@@ -99,9 +98,6 @@ namespace DailyAuto.Controllers
                 return Forbid();
 
             var model = _usersService.GetUserById(id);
-
-            if (model is null)  //убрать?
-                return NotFound();
 
             return Ok(ModelToDTO(model));
         }
@@ -118,7 +114,6 @@ namespace DailyAuto.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult UpdateUser(long id, UpdateUserRequest request)
         {
             if (id < 1)
@@ -130,9 +125,6 @@ namespace DailyAuto.Controllers
                 return Forbid();
 
             var user = _usersService.GetUserById(id);
-
-            if (user is null)  //убрать?
-                return NotFound();
 
             if (request.HasProperty(nameof(user.Password)))
             {
