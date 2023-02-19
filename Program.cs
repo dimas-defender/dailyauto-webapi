@@ -91,13 +91,16 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-    /*app.UseSwaggerUI(o =>
+    app.UseSwagger(c =>
     {
-        o.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-        o.RoutePrefix = "/api/v1";
-    });*/
+        c.RouteTemplate = "api/{documentName}/swagger.json";
+    });
+
+    app.UseSwaggerUI(c =>
+    {
+        c.RoutePrefix = "api/v1";
+        c.SwaggerEndpoint("/api/v1/swagger.json", "My API V1");
+    });
 }
 
 app.UseAuthentication();

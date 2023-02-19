@@ -73,7 +73,7 @@ services:
   nginx:
     image: 'byjg/nginx-extras'
     ports:
-      - "9090:9090"
+      - "80:80"
     links:
       - "api:api"
       - "api2:api2"

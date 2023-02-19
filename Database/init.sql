@@ -24,6 +24,17 @@ CREATE TABLE order_ (
 	cost_ INT NOT NULL
 );
 
+CREATE FUNCTION make_booked()
+RETURNS TRIGGER AS $$
+	BEGIN
+		UPDATE car_ SET is_available_ = false where id_ = new.car_id_;
+		RETURN new;
+	END
+$$ LANGUAGE PLPGSQL;
+
+CREATE TRIGGER new_order AFTER INSERT ON order_
+	FOR EACH ROW EXECUTE PROCEDURE make_booked();
+
 CREATE ROLE db_readonly;
 GRANT CONNECT ON DATABASE dailyauto TO db_readonly;
 GRANT USAGE ON SCHEMA public TO db_readonly;

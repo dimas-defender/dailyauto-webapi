@@ -4,3 +4,15 @@ services:
   api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+
+  api2:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+
+  api3:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+
+  apimirror:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
