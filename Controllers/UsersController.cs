@@ -4,7 +4,6 @@ using DailyAuto.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.JSInterop.Infrastructure;
 using System.ComponentModel.DataAnnotations;
 using System.Security.Cryptography;
 using System.Text;
@@ -158,13 +157,13 @@ namespace DailyAuto.Controllers
                 License = user.License
             };
 
-        public string Encode(string password)
+        private static string Encode(string password)
         {
 
             return Convert.ToBase64String(Encoding.Unicode.GetBytes(password));
         }
 
-        public string Decode(string password)
+        private static string Decode(string password)
         {
             return Encoding.Unicode.GetString(Convert.FromBase64String(password));
         }
