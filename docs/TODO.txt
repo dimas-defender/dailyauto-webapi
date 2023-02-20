@@ -1,20 +1,13 @@
 Тестировать эндпоинты
-Экраны (гостевой, основной, конкр.машина, профиль, конкр.заказ(?)) //регистрация, авторизация
-README.md (экраны, Apache)
-nginx(header ServerName, кэширование/gzip)
-
 https://github.com/vladilenm/react-fast-2022
-MVC https://habr.com/ru/post/493430/
-JWT https://medium.com/geekculture/user-authentication-with-react-700e5cb331e4
 Поправить Cors
 Docker-compose, nginx, Cors https://www.youtube.com/watch?v=PhF6PxDT8Mo&ab_channel=%D0%A0%D1%83%D1%81%D0%BB%D0%B0%D0%BD%D0%93%D0%B0%D0%BB%D0%B5%D0%B5%D0%B2
-CreateClaims(?)
-cars Authorize?
-Hooks = useState(), useEffect(), useContext(), useRef(), useMemo(), useCallback(), useReducer()
 
 
 JsonPatchDoc https://medium.com/@niteshsinghal85/httpput-or-httppatch-in-asp-net-core-ceaae99e320b
 NotFound в GetUserById, UpdateUser, GetOrdersByUserId(?)
 Таймер аренды машины (IsAvailable)
+MVC https://habr.com/ru/post/493430/
+JWT https://medium.com/geekculture/user-authentication-with-react-700e5cb331e4
 https://metanit.com/sharp/aspnet6/
 https://metanit.com/sharp/tutorial/
