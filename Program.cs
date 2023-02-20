@@ -32,7 +32,9 @@ builder.Services.AddCors(options =>
                       policy =>
                       {
                           policy.WithOrigins("http://localhost:80",
-                                             "http://localhost:3000");
+                                             "http://localhost:3000")
+                                .AllowAnyHeader()
+                                .AllowAnyMethod();
                       });
 });
 
