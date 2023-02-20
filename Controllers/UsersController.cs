@@ -4,6 +4,7 @@ using DailyAuto.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.JSInterop.Infrastructure;
 using System.ComponentModel.DataAnnotations;
 using System.Security.Cryptography;
 using System.Text;
@@ -40,7 +41,7 @@ namespace DailyAuto.Controllers
             if (existUser != null)
                 return Conflict();
 
-            var user = new User(0, request.Login, GetHash(request.Password), request.License);
+            var user = new User(0, request.Login, Encode(request.Password), request.License);
 
             var model = _usersService.CreateUser(user);
             var dto = ModelToDTO(model);
@@ -64,7 +65,7 @@ namespace DailyAuto.Controllers
             if (user is null)
                 return BadRequest();
 
-            if (GetHash(request.Password) != user.Password)
+            if (Encode(request.Password) != user.Password)
                 return BadRequest();
 
             var accessToken = _tokenService.CreateToken(user);
@@ -99,7 +100,10 @@ namespace DailyAuto.Controllers
 
             var model = _usersService.GetUserById(id);
 
-            return Ok(ModelToDTO(model));
+            var dto = ModelToDTO(model);
+            dto.Password = Decode(dto.Password);
+
+            return Ok(dto);
         }
 
         /// <summary>
@@ -131,7 +135,7 @@ namespace DailyAuto.Controllers
                 if (string.IsNullOrWhiteSpace(request.Password))
                     return BadRequest();
 
-                user.Password = GetHash(request.Password);
+                user.Password = Encode(request.Password);
             }
 
             if (request.HasProperty(nameof(user.License)))
@@ -154,12 +158,15 @@ namespace DailyAuto.Controllers
                 License = user.License
             };
 
-        private static string GetHash(string password)
+        public string Encode(string password)
         {
-            using (var hash = SHA1.Create())
-            {
-                return string.Concat(hash.ComputeHash(Encoding.UTF8.GetBytes(password)).Select(x => x.ToString("X2")));
-            }
+
+            return Convert.ToBase64String(Encoding.Unicode.GetBytes(password));
+        }
+
+        public string Decode(string password)
+        {
+            return Encoding.Unicode.GetString(Convert.FromBase64String(password));
         }
     }
     public class UserDTO

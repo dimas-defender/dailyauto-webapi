@@ -26,6 +26,16 @@ builder.Services.AddScoped<IOrdersService, OrdersService>();
 builder.Services.AddScoped<TokenService, TokenService>();
 builder.Services.AddSingleton(builder.Configuration);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "MyAllowSpecificOrigins",
+                      policy =>
+                      {
+                          policy.WithOrigins("http://localhost:80",
+                                             "http://localhost:3000");
+                      });
+});
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
@@ -103,14 +113,11 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+app.UseCors("MyAllowSpecificOrigins");
+
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
-app.UseCors(x => x
-    .AllowAnyOrigin()
-    .AllowAnyMethod()
-    .AllowAnyHeader());
 
 app.Run();
