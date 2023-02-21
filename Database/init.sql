@@ -45,3 +45,28 @@ GRANT SELECT ON TABLE dailyauto.public.order_ TO db_readonly;
 
 CREATE USER user_readonly WITH PASSWORD '3563readonly';
 GRANT db_readonly TO user_readonly;
+
+INSERT INTO CAR_ (model_, is_available_, price_, mileage_) VALUES
+('BMW X3', true, 800, 7500),
+('Toyota Camry', true, 500, 115000),
+('Skoda Rapid', true, 600, 213000),
+('Renault Logan', true, 1800, 35000),
+('BMW X5', true, 1300, 22000),
+('Kia Sorento', true, 1200, 351000),
+('LADA 2109', true, 1000, 42000),
+('Skoda Yeti', true, 200, 89100),
+('Daewoo Matiz', true, 400, 135000),
+('Kia Rio', true, 500, 33300),
+('Nissan Almera', true, 700, 5000),
+('Volkswagen Tiguan', true, 1000, 7200),
+('Toyota Prius', true, 900, 241000),
+('Hyundai Solaris', true, 300, 12000),
+('Hyndai Creta', true, 400, 31000),
+('Honda Accord', true, 800, 7500),
+('Skoda Karoq', true, 500, 75000),
+('Chery Tiggo', true, 600, 13000),
+('Hyundai ix35', true, 1800, 24000),
+('Nissan Qashqai', true, 1300, 2000),
+('Skoda Octavia', true, 1200, 31000),
+('Volkswagen Passat', true, 1000, 68000),
+('Skoda Kodiaq', true, 200, 8900);
